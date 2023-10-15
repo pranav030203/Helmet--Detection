@@ -1,0 +1,35 @@
+This code is an example of how to use a pre-trained helmet detection model to make predictions on an input image. Here's a breakdown of the code's main components and their functionality:
+
+Importing Libraries:
+
+numpy is imported as np for numerical operations.
+PIL (Python Imaging Library) is imported as Image for image handling.
+The keras module from the tensorflow library is imported for loading the pre-trained model and making predictions.
+Loading the Pre-trained Model:
+
+The code loads a pre-trained helmet detection model from a file named 'helmet_detection_model.h5' using the keras.models.load_model function. This model is expected to have been previously trained for classifying images into two classes: 'No Helmet' and 'Helmet'.
+Preprocessing an Input Image:
+
+The preprocess_image function is defined to prepare an input image for inference.
+It opens the image at the specified path using the PIL library and converts it to RGB format.
+It resizes the image to 224x224 pixels. This step is essential because it matches the model's input size. Model input sizes are typically fixed, and the input image needs to have the same dimensions as the model expects.
+Pixel values are normalized by dividing by 255.0 to scale them to the range [0, 1].
+The resulting image is converted to a numpy array and then expanded along the first axis, creating a batch of size 1 (necessary for model inference).
+Class Definitions:
+
+A dictionary named classes is defined to map class IDs to class labels. In this case, 'No Helmet' is represented by class 0, and 'Helmet' is represented by class 1.
+Making Predictions:
+
+The predict_helmet function takes an image path as input.
+It preprocesses the image using the preprocess_image function.
+The preprocessed image is then passed to the loaded model using model.predict to obtain a prediction, which is a probability distribution over the two classes ('No Helmet' and 'Helmet').
+np.argmax(prediction) is used to find the class ID with the highest predicted probability, indicating the predicted class.
+The class label corresponding to the predicted class ID is obtained from the classes dictionary.
+The confidence score is extracted as the predicted probability for the predicted class.
+The function returns the predicted class label and confidence.
+Predicting an Image:
+
+The path to the image to be tested is specified as 'test_image.jpg'.
+The predict_helmet function is called with this image path.
+The results, including the predicted class and confidence score, are printed to the console.
+Overall, this code demonstrates how to use a pre-trained neural network model to perform helmet detection on a single image. It preprocesses the image, passes it through the model, and then interprets the model's output to provide a class prediction and confidence score. This is a basic example of image classification using a pre-trained model.
